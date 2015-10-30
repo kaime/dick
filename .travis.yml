@@ -1,0 +1,4 @@
+language: bash
+sudo: required
+install: sudo make install
+script: make test
