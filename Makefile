@@ -15,4 +15,4 @@ uninstall:
 test:
 	bash test.sh
 
-.PHONY: default install test
+.PHONY: default install uninstall test
