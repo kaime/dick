@@ -1,5 +1,7 @@
 #!/bin/bash
 
+VERSION='0.2.0'
+
 is_numeric() {
   echo "$1" | grep -E "^[0-9]+$"
 }
@@ -17,6 +19,7 @@ dick_usage() {
                              characters. Default is 3. Omit this option or set
                              it to 0 to output no sperm at all.
      -n                      Do not echo trailing newline.
+     -v, --version           Display dick version.
      -h, --help              Display this help information.
   "
 }
@@ -33,6 +36,10 @@ while [ "$1" != "" ]; do
   case $OPT in
     -h | --help)
       dick_usage
+      exit
+      ;;
+    -v | --version)
+      echo "dick $VERSION"
       exit
       ;;
     -n)

@@ -61,6 +61,8 @@ test_output "4 -s 1" "8====D ~"
 test_output "-l --sperm=5" "8=====D ~~~~~"
 test_output "12 -s 10" "8============D ~~~~~~~~~~"
 test_output "-l 12 --sperm 0" "8============D"
+test_output "-v" "dick 0.2.0"
+test_output "--version" "dick 0.2.0"
 
 test_fails '-p'
 test_fails '-q'
