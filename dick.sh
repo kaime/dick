@@ -24,7 +24,13 @@ dick_usage() {
   "
 }
 
-LENGTH=5
+read -t 0.01 STDIN_LENGTH
+if [[ -n $STDIN_LENGTH ]]; then
+  LENGTH=$STDIN_LENGTH
+else
+  LENGTH=5
+fi
+
 SPERM=0
 LAST_OPT="-l"
 NEW_LINE=1
