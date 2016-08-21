@@ -35,6 +35,25 @@ test_output() {
   ok
 }
 
+test_pipe() {
+  COMMAND="echo $1 | dick"
+  DICK="`echo $1 | dick`"
+  EXPECTED="$2"
+
+  echo -ne " - '\e[1m$COMMAND\e[0m' should output '\e[1m$EXPECTED\e[0m'"
+
+  if [[ "$?" != 0 ]]; then
+    fail "'$COMMAND' exit status was $?."
+    exit 1
+  fi
+
+  if [[ $DICK != $EXPECTED ]]; then
+    fail "Expected '$2', but got '$DICK'."
+    exit 1
+  fi
+  ok
+}
+
 test_fails() {
   COMMAND="dick $1"
 
@@ -63,6 +82,10 @@ test_output "12 -s 10" "8============D ~~~~~~~~~~"
 test_output "-l 12 --sperm 0" "8============D"
 test_output "-v" "dick 0.2.0"
 test_output "--version" "dick 0.2.0"
+
+test_pipe "10" "8==========D"
+test_pipe "1" "8=D"
+test_pipe "5" "8=====D"
 
 test_fails '-p'
 test_fails '-q'
