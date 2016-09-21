@@ -12,6 +12,7 @@ dick_usage() {
 
   Options:
 
+     -b, --big               Change dick format to a bigger one.
      -l, --length [<length>] Set dick length, in characters. Default is 5, a
                              moderate dick length. It must be an integer,
                              positive number (some dignity applies).
@@ -28,6 +29,7 @@ LENGTH=5
 SPERM=0
 LAST_OPT="-l"
 NEW_LINE=1
+BIG=0
 
 while [ "$1" != "" ]; do
   OPT=`printf '%q' "$1" | awk -F= '{print $1}'`
@@ -41,6 +43,9 @@ while [ "$1" != "" ]; do
     -v | --version)
       echo "dick $VERSION"
       exit
+      ;;
+    -b | --big)
+      BIG=1
       ;;
     -n)
       NEW_LINE=""
@@ -105,11 +110,35 @@ if [[ $SPERM_IS_NUMERIC == "" ]]; then
   exit 1
 fi
 
-DICK="8`seq 1 $LENGTH | sed 's/.*/=/' | tr -d '\n'`D"
-
-if [[ $SPERM != "0" ]]; then
+if
+[[ $BIG == "0" ]]; then
+  DICK="8`seq 1 $LENGTH | sed 's/.*/=/' | tr -d '\n'`D"
+  if [[ $SPERM != "0" ]]; then
   DICK="$DICK `seq 1 $SPERM | sed 's/.*/~/' | tr -d '\n'`"
+  fi
+else
+
+  if [[ $SPERM != "0" ]]; then
+    DICK=" 
+   ____
+  /    \_`seq 1 $LENGTH | sed 's/.*/_/' | tr -d '\n'`____
+  \___   `seq 1 $LENGTH | sed 's/.*/ /' | tr -d '\n'`|  _\ `seq 1 $SPERM | sed 's/.*/_ /' | tr -d '\n'`
+  /     _`seq 1 $LENGTH | sed 's/.*/_/' | tr -d '\n'`|___/
+  \____/
+
+  "
+  else
+    DICK=" 
+   ____
+  /    \_`seq 1 $LENGTH | sed 's/.*/_/' | tr -d '\n'`____
+  \___   `seq 1 $LENGTH | sed 's/.*/ /' | tr -d '\n'`|  _\ 
+  /     _`seq 1 $LENGTH | sed 's/.*/_/' | tr -d '\n'`|___/
+  \____/
+
+  "
+  fi
 fi
+
 
 echo -n "$DICK"
 
